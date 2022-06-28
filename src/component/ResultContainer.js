@@ -1,6 +1,5 @@
 import styled from "styled-components";
-
-import DummyData from "../asset/dummyData";
+import { useState } from "react";
 import ImageCard from "./ImageCard";
 import ImageModal from "./ImageModal";
 import Pagination from "./Pagination";
@@ -21,17 +20,28 @@ const ResultsWrapper = styled.div`
 `;
 
 const ResultContainer = ({ data, page, setPage, numOfPages }) => {
+  const [curImgDetail, setCurImgDetail] = useState(null);
+  // console.log(curImgDetail);
   return (
     <Container>
       {/* ImgCard 클릭 시 해당 이미지의 정보로 ImageModal이 나타나야 합니다. */}
-      {/* <ImageModal /> */}
+      {curImgDetail && (
+        <ImageModal
+          curImgDetail={curImgDetail}
+          setCurImgDetail={setCurImgDetail}
+        />
+      )}
       {data.hits?.length > 0 && (
         <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
       )}
       <ResultsWrapper>
         {data.hits?.length > 0 ? (
           data.hits?.map((imgData) => (
-            <ImageCard key={imgData.id} imgData={imgData} />
+            <ImageCard
+              key={imgData.id}
+              imgData={imgData}
+              onClick={() => setCurImgDetail(imgData)}
+            />
           ))
         ) : (
           <EmptyResult />
