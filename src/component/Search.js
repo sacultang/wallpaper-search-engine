@@ -46,7 +46,7 @@ const SearchOptionButton = styled.p`
   color: #5e5e5e;
 `;
 
-const Search = ({ setQuery }) => {
+const Search = ({ setQuery, setOrientation, setOrder, setPerPage }) => {
   const savedSearchTags = localStorage.getItem("searchTags");
   const initialSearchTags = savedSearchTags ? JSON.parse(savedSearchTags) : [];
   const [searchOption, setSearchOption] = useState(false);
@@ -94,12 +94,18 @@ const Search = ({ setQuery }) => {
             검색 옵션 {searchOption ? "닫기" : "열기"}
           </SearchOptionButton>
         </SearchInputContainer>
-        {searchOption && <SearchOption />}
+        {searchOption && (
+          <SearchOption
+            setOrder={setOrder}
+            setOrientation={setOrientation}
+            setPerPage={setPerPage}
+          />
+        )}
       </SearchBoxContainer>
       <SearchTagContainer>
         {searchTags.map((tag, idx) => (
           <SearchTag
-            key={idx}
+            key={tag + idx}
             tag={tag}
             searchTag={() => searchTag(tag)}
             deleteTag={() => {

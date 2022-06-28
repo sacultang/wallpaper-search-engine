@@ -15,22 +15,41 @@ const Container = styled.div`
 function App() {
   const [data, setData] = useState({});
   const [query, setQuery] = useState("");
-  //   const data = DummyData;
+  const [orientation, setOrientation] = useState("popular");
+  const [order, setOrder] = useState("all");
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(20);
+
+  const numOfPages = data.totalHits ? Math.ceil(data.totalHits / perPage) : 0;
   useEffect(() => {
     const fetch = async () => {
       const data = await getWallPapers({
         q: query,
+        orientation,
+        order,
+        page,
+        per_page: perPage,
       });
       setData(data);
     };
     fetch();
-  }, [query]);
-  console.log(query);
+  }, [query, orientation, order, page, perPage]);
+  // console.log(query);
   return (
     <>
       <Container>
-        <Hero setQuery={setQuery} />
-        <ResultContainer data={data} />
+        <Hero
+          setQuery={setQuery}
+          setOrientation={setOrientation}
+          setOrder={setOrder}
+          setPerPage={setPerPage}
+        />
+        <ResultContainer
+          data={data}
+          page={page}
+          setPage={setPage}
+          numOfPages={numOfPages}
+        />
         <Footer />
         <ToggleThemeButton />
       </Container>
