@@ -31,21 +31,18 @@ const ResultContainer = ({ data, page, setPage, numOfPages }) => {
           setCurImgDetail={setCurImgDetail}
         />
       )}
-      {data.hits?.length > 0 && (
+      {/* {data.hits?.length > 0 && (
         <Pagination page={page} setPage={setPage} numOfPages={numOfPages} />
-      )}
+      )} */}
       <ResultsWrapper>
-        {data.hits?.length > 0 ? (
-          data.hits?.map((imgData) => (
+        {data.hits?.length > 0 &&
+          data.hits?.map((imgData, idx) => (
             <ImageCard
-              key={imgData.id}
+              key={`${imgData.id}${idx}`}
               imgData={imgData}
               onClick={() => setCurImgDetail(imgData)}
             />
-          ))
-        ) : (
-          <EmptyResult />
-        )}
+          ))}
         {/* 검색 결과가 없을 시 페이지네이션과 ImgCard 목록 대신 EmptyResult가 렌더되어야 합니다. */}
         {/* <EmptyResult /> */}
       </ResultsWrapper>

@@ -25,7 +25,6 @@ const PageSelect = styled.select`
 `;
 
 const Pagination = ({ page, setPage, numOfPages }) => {
-  console.log(page, typeof page);
   return (
     <Nav>
       {page !== 1 && (

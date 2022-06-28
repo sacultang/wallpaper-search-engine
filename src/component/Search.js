@@ -49,7 +49,7 @@ const SearchOptionButton = styled.p`
 const Search = ({ setQuery, setOrientation, setOrder, setPerPage }) => {
   const savedSearchTags = localStorage.getItem("searchTags");
   const initialSearchTags = savedSearchTags ? JSON.parse(savedSearchTags) : [];
-  const [searchOption, setSearchOption] = useState(false);
+  const [searchOption, setSearchOption] = useState(true);
   const [searchTags, setSearchTags] = useState(initialSearchTags);
   const inputRef = useRef(null);
 
@@ -91,16 +91,16 @@ const Search = ({ setQuery, setOrientation, setOrder, setPerPage }) => {
             placeholder="검색어 입력 후 ENTER"
           />
           <SearchOptionButton onClick={toggleSearchOption}>
-            검색 옵션 {searchOption ? "닫기" : "열기"}
+            검색 옵션 {searchOption ? "열기" : "닫기"}
           </SearchOptionButton>
         </SearchInputContainer>
-        {searchOption && (
+        <div hidden={searchOption}>
           <SearchOption
             setOrder={setOrder}
             setOrientation={setOrientation}
             setPerPage={setPerPage}
           />
-        )}
+        </div>
       </SearchBoxContainer>
       <SearchTagContainer>
         {searchTags.map((tag, idx) => (
