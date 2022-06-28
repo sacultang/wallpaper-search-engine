@@ -23,12 +23,11 @@ const TagLabel = styled.span`
   }
 `;
 
-const SearchTag = ({ tag }) => {
-  console.log(tag);
+const SearchTag = ({ tag, searchTag, deleteTag }) => {
   return (
-    <Tag>
+    <Tag onClick={searchTag}>
       <TagLabel>{tag}</TagLabel>
-      <DeleteIcon width="12px" />
+      <DeleteIcon width="12px" onClick={deleteTag} />
     </Tag>
   );
 };

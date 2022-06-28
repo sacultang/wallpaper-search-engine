@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { ReactComponent as SearchIcon } from "../asset/search.svg";
 import SearchTag from "./SearchTag";
@@ -47,9 +47,15 @@ const SearchOptionButton = styled.p`
 `;
 
 const Search = ({ setQuery }) => {
+  const savedSearchTags = localStorage.getItem("searchTags");
+  const initialSearchTags = savedSearchTags ? JSON.parse(savedSearchTags) : [];
   const [searchOption, setSearchOption] = useState(false);
-  const [searchTags, setSearchTags] = useState([]);
+  const [searchTags, setSearchTags] = useState(initialSearchTags);
   const inputRef = useRef(null);
+
+  const updateSearchInput = (value) => {
+    inputRef.current.value = value;
+  };
   const toggleSearchOption = () => {
     setSearchOption((prev) => !prev);
   };
@@ -57,10 +63,23 @@ const Search = ({ setQuery }) => {
     if (e.key === "Enter") {
       setQuery(e.target.value);
       setSearchTags((prev) => [...prev, e.target.value]);
-      inputRef.current.value = "";
+      updateSearchInput("");
     }
   };
-
+  const searchTag = (tag) => {
+    setQuery(tag);
+    updateSearchInput(tag);
+    // 1. 현재 클릭 된  최근 검색어로 검색 실행
+    // 2. 검색 창 input 값
+  };
+  const deleteTag = (idx) => {
+    const newSearchTags = [...searchTags];
+    newSearchTags.splice(idx, 1);
+    setSearchTags(newSearchTags);
+  };
+  useEffect(() => {
+    localStorage.setItem("searchTags", JSON.stringify(searchTags));
+  }, [searchTags]);
   return (
     <>
       <SearchBoxContainer>
@@ -79,7 +98,14 @@ const Search = ({ setQuery }) => {
       </SearchBoxContainer>
       <SearchTagContainer>
         {searchTags.map((tag, idx) => (
-          <SearchTag key={idx} tag={tag} />
+          <SearchTag
+            key={idx}
+            tag={tag}
+            searchTag={() => searchTag(tag)}
+            deleteTag={() => {
+              deleteTag(idx);
+            }}
+          />
         ))}
       </SearchTagContainer>
     </>
