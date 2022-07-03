@@ -1,18 +1,31 @@
 import styled from "styled-components";
 import ToggleThemeButton from "./component/ToggleThemeButton";
-import Hero from "./component/Hero";
-import ResultContainer from "./component/ResultContainer";
+import ResultContainer from "./component/Image/ImageContainer";
 import Footer from "./component/Footer";
 import "./App.css";
 import { useEffect, useState, useRef } from "react";
 import getWallPapers from "./api/getWallpaers";
 import EmptyResult from "./component/EmptyResult";
+import Title from "./component/Title";
+import Search from "./component/search/Search";
+
 const Container = styled.div`
   position: relative;
   background-color: var(--primary);
   min-height: 100vh;
 `;
 
+const Header = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 120px 32px 16px 32px;
+  background-color: var(--secondary);
+`;
 function App() {
   const [data, setData] = useState({ total: 0, totalHits: 0, hits: [] });
   const [query, setQuery] = useState("");
@@ -65,12 +78,15 @@ function App() {
   return (
     <>
       <Container>
-        <Hero
-          setQuery={setQuery}
-          setOrientation={setOrientation}
-          setOrder={setOrder}
-          setPerPage={setPerPage}
-        />
+        <Header>
+          <Title />
+          <Search
+            setQuery={setQuery}
+            setOrientation={setOrientation}
+            setOrder={setOrder}
+            setPerPage={setPerPage}
+          />
+        </Header>
         <ResultContainer
           data={data}
           page={page}

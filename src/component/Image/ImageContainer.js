@@ -17,7 +17,7 @@ const ResultsWrapper = styled.div`
   width: 100%;
 `;
 
-const ResultContainer = ({ data, page, setPage, numOfPages }) => {
+const ImageContainer = ({ data, page, setPage, numOfPages }) => {
   const [curImgDetail, setCurImgDetail] = useState(null);
   // console.log(curImgDetail);
   return (
@@ -50,4 +50,4 @@ const ResultContainer = ({ data, page, setPage, numOfPages }) => {
   );
 };
 
-export default ResultContainer;
+export default ImageContainer;

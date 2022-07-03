@@ -34,6 +34,7 @@ const Content = styled.div`
   flex-direction: column;
   text-align: center;
   padding: 120px 32px 16px 32px;
+  background-color: var(--secondary);
 `;
 
 const Hero = ({ setQuery, setOrder, setOrientation, setPerPage }) => {
