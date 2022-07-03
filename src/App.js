@@ -50,6 +50,7 @@ function App() {
     }
   };
   useEffect(() => {
+    if (!target.current) return;
     const observer = new IntersectionObserver(callback, {
       threshold: 1,
     });
