@@ -33,7 +33,7 @@ const SearchTag = ({ tag, searchTag, deleteTag }: ISearchTag) => {
       <TagLabel>{tag}</TagLabel>
       <DeleteIcon
         width="12px"
-        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+        onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           deleteTag();
         }}
