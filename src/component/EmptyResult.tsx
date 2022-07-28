@@ -7,8 +7,10 @@ const EmptyResultContainer = styled.div`
   line-height: 1.3;
   color: var(--highlight);
 `;
-
-const EmptyResult = ({ isLoading }) => {
+interface IEmpty {
+  isLoading: number;
+}
+const EmptyResult = ({ isLoading }: IEmpty) => {
   return (
     <EmptyResultContainer>
       {isLoading ? (

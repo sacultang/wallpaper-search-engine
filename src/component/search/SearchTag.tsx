@@ -22,14 +22,18 @@ const TagLabel = styled.span`
     text-decoration: underline;
   }
 `;
-
-const SearchTag = ({ tag, searchTag, deleteTag }) => {
+interface ISearchTag {
+  tag: string;
+  searchTag: () => void;
+  deleteTag: () => void;
+}
+const SearchTag = ({ tag, searchTag, deleteTag }: ISearchTag) => {
   return (
     <Tag onClick={searchTag}>
       <TagLabel>{tag}</TagLabel>
       <DeleteIcon
         width="12px"
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.stopPropagation();
           deleteTag();
         }}

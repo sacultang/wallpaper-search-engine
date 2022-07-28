@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Orientation, Order } from "../../types";
 const SearchOptionContainer = styled.div`
   display: flex;
   width: 100%;
@@ -23,14 +23,27 @@ const SearchOptionLabel = styled.p`
   padding: 4px;
   border-radius: 16px;
 `;
-
-const SearchOption = ({ setOrientation, setOrder, setPerPage }) => {
+interface ISearchOption {
+  setOrientation: React.Dispatch<React.SetStateAction<Orientation>>;
+  setOrder: React.Dispatch<React.SetStateAction<Order>>;
+  setPerPage: React.Dispatch<React.SetStateAction<number>>;
+}
+const SearchOption = ({
+  setOrientation,
+  setOrder,
+  setPerPage,
+}: ISearchOption) => {
   return (
     <SearchOptionContainer>
       <SearchOptionUl>
         <SearchOptionLi>
           <SearchOptionLabel>정렬</SearchOptionLabel>
-          <form id="order" onChange={(e) => setOrder(e.target.value)}>
+          <form
+            id="order"
+            onChange={(e: React.ChangeEvent<HTMLFormElement>) =>
+              setOrder(e.target.value)
+            }
+          >
             <input type="radio" name="order" id="latest" value="latest" />
             <label htmlFor="latest">최신순</label>
             <input
@@ -47,7 +60,9 @@ const SearchOption = ({ setOrientation, setOrder, setPerPage }) => {
           <SearchOptionLabel>사진 방향</SearchOptionLabel>
           <form
             id="orientation"
-            onChange={(e) => setOrientation(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLFormElement>) =>
+              setOrientation(e.target.value)
+            }
           >
             <input
               type="radio"
@@ -75,7 +90,12 @@ const SearchOption = ({ setOrientation, setOrder, setPerPage }) => {
         </SearchOptionLi>
         <SearchOptionLi>
           <SearchOptionLabel>페이지 당 갯수</SearchOptionLabel>
-          <form id="per_page" onChange={(e) => setPerPage(e.target.value)}>
+          <form
+            id="per_page"
+            onChange={(e: React.ChangeEvent<HTMLFormElement>) =>
+              setPerPage(e.target.value)
+            }
+          >
             <input type="radio" name="per_page" id="10" value={10} />
             <label htmlFor="10">10</label>
             <input

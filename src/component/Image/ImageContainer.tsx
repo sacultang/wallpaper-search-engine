@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import React, { useState, Suspense } from "react";
 import ImageCard from "./ImageCard";
+import { IGetWallPapersResponse, IWallPaer } from "../../types";
+
 const ImageModal = React.lazy(() => import("./ImageModal"));
 
 const Container = styled.div`
@@ -17,8 +19,12 @@ const ResultsWrapper = styled.div`
   width: 100%;
 `;
 
-const ImageContainer = ({ data, page, setPage, numOfPages }) => {
-  const [curImgDetail, setCurImgDetail] = useState(null);
+interface IImageContainer {
+  data: IGetWallPapersResponse;
+}
+
+const ImageContainer = ({ data }: IImageContainer) => {
+  const [curImgDetail, setCurImgDetail] = useState<IWallPaer | null>(null);
   // console.log(curImgDetail);
   return (
     <Container>

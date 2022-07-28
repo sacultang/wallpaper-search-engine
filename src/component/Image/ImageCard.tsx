@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { IWallPaer } from "../../types";
 const Card = styled.div`
   margin-left: 8px;
   margin-bottom: 8px;
@@ -15,7 +15,13 @@ const Img = styled.img`
   border-radius: 4px;
 `;
 // 183.
-const ImageCard = ({ imgData, onClick }) => {
+
+interface IImageCard {
+  imgData: IWallPaer;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+}
+
+const ImageCard = ({ imgData, onClick }: IImageCard) => {
   const { previewURL, id } = imgData;
   return (
     <Card onClick={onClick}>

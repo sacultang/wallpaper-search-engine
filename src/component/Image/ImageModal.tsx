@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { ReactComponent as LikeIcon } from "../../asset/like.svg";
 import { ReactComponent as DeleteIcon } from "../../asset/delete.svg";
 
+// const logo = require("./logo.svg") as string;
+import { IWallPaer } from "../../types";
 const Modal = styled.div`
   position: fixed;
   left: 50%;
@@ -30,7 +32,12 @@ const DetailRow = styled.div`
   }
 `;
 
-const ImageModal = ({ curImgDetail, setCurImgDetail }) => {
+interface IImageModal {
+  curImgDetail: IWallPaer;
+  setCurImgDetail: React.Dispatch<React.SetStateAction<IWallPaer | null>>;
+}
+
+const ImageModal = ({ curImgDetail, setCurImgDetail }: IImageModal) => {
   const { largeImageURL, tags, likes, views } = curImgDetail;
   //   console.log(largeImageURL);
   return (

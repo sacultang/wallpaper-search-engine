@@ -8,7 +8,7 @@ import getWallPapers from "./api/getWallpaers";
 import EmptyResult from "./component/EmptyResult";
 import Title from "./component/Title";
 import Search from "./component/search/Search";
-
+import { IGetWallPapersResponse, Order, Orientation } from "./types";
 const Container = styled.div`
   position: relative;
   background-color: var(--primary);
@@ -26,26 +26,33 @@ const Header = styled.div`
   padding: 120px 32px 16px 32px;
   background-color: var(--secondary);
 `;
+
 function App() {
-  const [data, setData] = useState({ total: 0, totalHits: 0, hits: [] });
+  const [data, setData] = useState<IGetWallPapersResponse>({
+    total: 0,
+    totalHits: 0,
+    hits: [],
+  });
   const [query, setQuery] = useState("");
-  const [orientation, setOrientation] = useState("popular");
-  const [order, setOrder] = useState("all");
+  const [orientation, setOrientation] = useState<Orientation>("all");
+  const [order, setOrder] = useState<Order>("popular");
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(20);
 
   const numOfPages = data.totalHits ? Math.ceil(data.totalHits / perPage) : 0;
   const target = useRef(null);
+
   useEffect(() => {
     const fetch = async () => {
       const data = await getWallPapers({
         q: query,
-        orientation,
-        order,
-        page,
-        per_page: perPage,
+        orientation: orientation,
+        order: order,
+        page: page.toString(),
+        per_page: perPage.toString(),
       });
       if (page === 1) {
+        console.log(data);
         setData(data);
       } else {
         setData((prevData) => ({
@@ -57,7 +64,7 @@ function App() {
     fetch();
   }, [query, orientation, order, page, perPage]);
   // console.log(query);
-  const callback = ([entries], observer) => {
+  const callback: IntersectionObserverCallback = ([entries]) => {
     if (entries.isIntersecting) {
       setPage((prev) => prev + 1);
     }
@@ -87,12 +94,7 @@ function App() {
             setPerPage={setPerPage}
           />
         </Header>
-        <ResultContainer
-          data={data}
-          page={page}
-          setPage={setPage}
-          numOfPages={numOfPages}
-        />
+        <ResultContainer data={data} />
         {numOfPages !== page && (
           <div ref={target}>
             <EmptyResult isLoading={data.totalHits} />

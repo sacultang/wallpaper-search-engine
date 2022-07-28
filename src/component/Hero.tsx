@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Search from "./Search";
+import Search from "./search/Search";
 
 const Container = styled.div`
   position: relative;
@@ -37,22 +37,23 @@ const Content = styled.div`
   background-color: var(--secondary);
 `;
 
-const Hero = ({ setQuery, setOrder, setOrientation, setPerPage }) => {
+const Hero = () => {
   return (
-    <Container>
-      <Content>
-        <HeroTitle>
-          <HeroTitleLink href="./">배경화면 검색 엔진</HeroTitleLink>
-        </HeroTitle>
-        <HeroSubtitle>오늘 나의 배경화면은? 👀</HeroSubtitle>
-        <Search
-          setQuery={setQuery}
-          setOrder={setOrder}
-          setOrientation={setOrientation}
-          setPerPage={setPerPage}
-        />
-      </Content>
-    </Container>
+    <></>
+    // <Container>
+    //   <Content>
+    //     <HeroTitle>
+    //       <HeroTitleLink href="./">배경화면 검색 엔진</HeroTitleLink>
+    //     </HeroTitle>
+    //     <HeroSubtitle>오늘 나의 배경화면은? 👀</HeroSubtitle>
+    //     <Search
+    //       setQuery={setQuery}
+    //       setOrder={setOrder}
+    //       setOrientation={setOrientation}
+    //       setPerPage={setPerPage}
+    //     />
+    //   </Content>
+    // </Container>
   );
 };
 
